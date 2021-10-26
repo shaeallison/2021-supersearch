@@ -68,8 +68,7 @@ const App = () => {
                 </Route>
                 <Route exact path='/:path' render={(props) => (
                   <Detail {...props} heroes={heroes} />
-                )}>
-                </Route>
+                )} />
               </Switch>
             </main>
           </div>
