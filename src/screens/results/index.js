@@ -4,11 +4,11 @@ import ResultsList from './List'
 const Results = () => {
   const [error, setError] = useState()
   const [isLoaded, setLoader] = useState(false)
-  const [heros, setHeros] = useState([])
+  const [heroes, setHeroes] = useState([])
 
   useEffect(() => {
-    async function fetchData() {
-      const response = await fetch('/all.json')
+    async function fetchData(url) {
+      const response = await fetch(url)
       const json = await response.json()
 
       if (!response.ok) {
@@ -16,20 +16,20 @@ const Results = () => {
         setError(response.status + ': ' + response.statusText)
       }
 
-      setHeros(json)
+      setHeroes(json)
       setLoader(true)
     }
-    fetchData()
+    fetchData('/all.json')
   },[])
 
   if (error) {
-    return <div>Error: {error.message}</div>
+    return <div>Error: {error}</div>
   } else if (!isLoaded) {
     return <div>Loading...</div>
   } else {
     return (
       <>
-        <ResultsList heros={heros} />
+        <ResultsList heroes={heroes} />
       </>
     )
   }

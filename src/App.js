@@ -1,4 +1,4 @@
-import React from 'react'
+import {React} from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,9 +10,11 @@ import './App.scss'
 import Welcome from './screens/welcome'
 import Results from './screens/results'
 import Team from './screens/team'
+import Detail from './screens/detail'
 
-const App = () => (
-  <div className="App">
+const App = () => {
+  return (
+    <div className="App">
     <Router>
       <div>
         <nav>
@@ -21,7 +23,7 @@ const App = () => (
               <Link to="/">Supersearch</Link>
             </li>
             <li>
-              <Link to="/superheros">Superheros</Link>
+              <Link to="/superheroes">Superheroes</Link>
             </li>
             <li>
               <Link to="/team">My Team</Link>
@@ -29,19 +31,21 @@ const App = () => (
           </ul>
         </nav>
         <Switch>
-          <Route path="/superheros">
+          <Route exact path="/">
+            <Welcome />
+          </Route>
+          <Route path="/superheroes">
             <Results />
           </Route>
           <Route path="/team">
             <Team />
           </Route>
-          <Route path="/">
-            <Welcome />
-          </Route>
+          <Route exact path="/:path" component={Detail}/>
         </Switch>
       </div>
     </Router>
   </div>
-)
+  )
+  }
 
 export default App

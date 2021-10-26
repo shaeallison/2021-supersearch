@@ -1,33 +1,17 @@
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
   Link
 } from "react-router-dom"
 
-import Detail from '../detail'
-
 const ResultsList = (props) => {
-  const heros = props.heros
+  const heroes = props.heroes
   return (
-    <>
-      <Router>
-        <Link to={'/' + heros[0].name}>{heros[0].name}</Link>
-        <Switch>
-          <Route path={'/' + heros[0].name}>
-            <Detail hero={heros[0]} />
-          </Route>
-        </Switch>
-      </Router>
-
-      <ul>
-        {heros.map(hero => (
-          <li key={hero.id}>
-            {hero.name}
-          </li>
-        ))}
-      </ul>
-    </>
+    <ul>
+      {heroes.map((hero, i) => (
+        <li key={hero.id}>
+          <Link to={'/' + hero.name}>{hero.name}</Link>
+        </li>
+      ))}
+    </ul>
   )
 }
 
