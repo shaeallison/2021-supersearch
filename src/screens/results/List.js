@@ -1,6 +1,6 @@
 import {
   Link
-} from "react-router-dom"
+} from 'react-router-dom'
 
 const ResultsList = (props) => {
   const heroes = props.heroes
