@@ -1,5 +1,5 @@
-const Detail = () =>  {
-  return <h1>Detail Screen</h1>
+const Detail = (props) =>  {
+  return <h1>{props.hero.name} Screen</h1>
 }
 
 export default Detail;

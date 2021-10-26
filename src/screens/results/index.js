@@ -1,4 +1,5 @@
 import {React, useState, useEffect} from 'react'
+import ResultsList from './List'
 
 const Results = () => {
   const [error, setError] = useState()
@@ -6,19 +7,20 @@ const Results = () => {
   const [heros, setHeros] = useState([])
 
   useEffect(() => {
-    fetch('/all.json')
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setLoader(true)
-          setHeros(result)
-        },
-        (error) => {
-          setLoader(true)
-          setError(error)
-        }
-      )
-  })
+    async function fetchData() {
+      const response = await fetch('/all.json')
+      const json = await response.json()
+
+      if (!response.ok) {
+        setLoader(true)
+        setError(response.status + ': ' + response.statusText)
+      }
+
+      setHeros(json)
+      setLoader(true)
+    }
+    fetchData()
+  },[])
 
   if (error) {
     return <div>Error: {error.message}</div>
@@ -26,13 +28,9 @@ const Results = () => {
     return <div>Loading...</div>
   } else {
     return (
-      <ul>
-        {heros.map(hero => (
-          <li key={hero.id}>
-            {hero.name}
-          </li>
-        ))}
-      </ul>
+      <>
+        <ResultsList heros={heros} />
+      </>
     )
   }
 }
