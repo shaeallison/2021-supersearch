@@ -55,21 +55,23 @@ const App = () => {
                 </li>
               </ul>
             </nav>
-            <Switch>
-              <Route exact path='/'>
-                <Welcome />
-              </Route>
-              <Route path='/superheroes'>
-                <Results heroes={heroes}/>
-              </Route>
-              <Route path='/team'>
-                <Team heroes={heroes}/>
-              </Route>
-              <Route exact path='/:path' render={(props) => (
-                <Detail {...props} heroes={heroes} />
-              )}>
-              </Route>
-            </Switch>
+            <main>
+              <Switch>
+                <Route exact path='/'>
+                  <Welcome />
+                </Route>
+                <Route path='/superheroes'>
+                  <Results heroes={heroes}/>
+                </Route>
+                <Route path='/team'>
+                  <Team heroes={heroes}/>
+                </Route>
+                <Route exact path='/:path' render={(props) => (
+                  <Detail {...props} heroes={heroes} />
+                )}>
+                </Route>
+              </Switch>
+            </main>
           </div>
         </Router>
       </div>
