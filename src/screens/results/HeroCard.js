@@ -67,13 +67,7 @@ const HeroCard = (props) => {
   const {images, name, powerstats} = props.hero
   console.log(images)
 
-  function handleExpand () {
-    if (isExpanded) {
-      toggleExpand(false)
-    } else {
-      toggleExpand(true)
-    }
-  }
+  const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
 
   return (
     <StyledCard isExpanded={isExpanded}>
