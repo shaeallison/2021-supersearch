@@ -1,4 +1,4 @@
-import Container from '../../components/container'
+import Container from '../../shared/Container'
 
 const Detail = (props) =>  {
   const heroName = props.location.pathname.replace('/', '')

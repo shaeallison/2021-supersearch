@@ -1,17 +1,24 @@
-import {
-  Link
-} from 'react-router-dom'
+import Grid from '../../shared/Grid'
+import Column from '../../shared/Column'
+import HeroCard from './HeroCard'
 
 const ResultsList = (props) => {
   const heroes = props.heroes
   return (
-    <ul>
+    <Grid>
       {heroes.map((hero, i) => (
-        <li key={hero.id}>
-          <Link to={'/' + hero.name}>{hero.name}</Link>
-        </li>
+        <Column
+          cols={[
+            {breakpoint: null, size: '12'},
+            {breakpoint: 'sm', size: '6'},
+            {breakpoint: 'md', size: '4'},
+            {breakpoint: 'lg', size: '3'}
+          ]}
+          key={hero.id}>
+          <HeroCard hero={hero} />
+        </Column>
       ))}
-    </ul>
+    </Grid>
   )
 }
 

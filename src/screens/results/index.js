@@ -1,8 +1,11 @@
+import Container from '../../shared/Container'
 import ResultsList from './List'
 
 const Results = (props) => {
   return (
-    <ResultsList heroes={props.heroes}/>
+    <Container>
+      <ResultsList heroes={props.heroes}/>
+    </Container>
   )
 }
 
