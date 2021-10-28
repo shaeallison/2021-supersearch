@@ -1,4 +1,4 @@
-import {React, useState, useRef, useEffect, useCallback } from 'react'
+import {React, useState, useEffect} from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,55 +16,23 @@ const App = () => {
   const [error, setError] = useState()
   const [isLoaded, setLoader] = useState(false)
   const [heroes, setHeroes] = useState([])
-  const [results, setResults] = useState([])
-  const loader = useRef(null);
 
-  const fetchData = async (url) =>  {
+  const fetchData = async (url) => {
     const response = await fetch(url)
     const json = await response.json()
     if (!response.ok) {
       setLoader(true)
-      setError(response.status + ': ' + response.statusText)
+      setError(response.status + ": " + response.statusText)
     }
     setHeroes(json)
-    setResults(json.slice(results.length, results.length + 1))
     setLoader(true)
   }
-
-  const handleObserver = useCallback(
-    (entries) => {
-      const target = entries[0];
-
-      if (target.isIntersecting) {
-        console.log("handleObserver", target.isIntersecting);
-        setResults((results) => [
-          ...results,
-          ...heroes.slice(results.length, results.length + 1),
-        ]);
-      }
-    },
-    [heroes]
-  );
 
   useEffect(() => {
     if (heroes.length < 1) {
       fetchData('/all.json')
     }
-
-    const option = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0
-    };
-    const observer = new IntersectionObserver(handleObserver, option)
-    console.log('observer loadercurrent', loader.current)
-    if (loader.current) {
-      console.log('observe something')
-      observer.observe(loader.current)
-    }
-  },[handleObserver, isLoaded])
-
-  console.log(results.length, 'results length: App')
+  }, [isLoaded, heroes])
 
   if (error) {
     return <div>Error: {error}</div>
@@ -73,7 +41,6 @@ const App = () => {
   } else {
     return (
       <div className='App'>
-        <button onClick={() => setResults([...results, ...heroes.slice(results.length, results.length + 1)])}>add more results</button>
         <Router>
           <div>
             <nav>
@@ -95,19 +62,18 @@ const App = () => {
                   <Welcome />
                 </Route>
                 <Route path='/superheroes'>
-                  <Results loader={loader} results={results}/>
+                  <Results heroes={heroes}/>
                 </Route>
                 <Route path='/team'>
                   <Team heroes={heroes}/>
                 </Route>
                 <Route exact path='/:path' render={(props) => (
-                  <Detail {...props} heroes={heroes} />
+                  <Detail {...props} heroes={heroes}/>
                 )} />
               </Switch>
             </main>
           </div>
         </Router>
-        <div style={{ color: 'red' }} ref={loader}>Loader Ref El</div>
       </div>
     )
   }
