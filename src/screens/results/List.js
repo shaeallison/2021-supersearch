@@ -3,10 +3,10 @@ import Column from '../../shared/Column'
 import HeroCard from './HeroCard'
 
 const ResultsList = (props) => {
-  const heroes = props.heroes
+  const results = props.results
   return (
     <Grid gutter="3.8">
-      {heroes.map((hero, i) => (
+      {results.map((hero, i) => (
         <Column
           gutter="3.8"
           cols={[
@@ -15,8 +15,9 @@ const ResultsList = (props) => {
             {breakpoint: 'md', size: '4'},
             {breakpoint: 'lg', size: '3'}
           ]}
-          key={hero.id}>
-          <HeroCard hero={hero} />
+          key={`column-${i}`}
+          >
+          <HeroCard hero={hero} key={`hero-${hero.id}`} />
         </Column>
       ))}
     </Grid>

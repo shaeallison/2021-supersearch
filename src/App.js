@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react'
+import {React, useState, useRef, useEffect, useCallback } from 'react'
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,22 +16,44 @@ const App = () => {
   const [error, setError] = useState()
   const [isLoaded, setLoader] = useState(false)
   const [heroes, setHeroes] = useState([])
+  const [results, setResults] = useState([])
+  const loader = useRef(null);
+
+  const fetchData = async (url) =>  {
+    const response = await fetch(url)
+    const json = await response.json()
+    if (!response.ok) {
+      setLoader(true)
+      setError(response.status + ': ' + response.statusText)
+    }
+    setHeroes(json)
+    setLoader(true)
+  }
+
+  const handleObserver = useCallback((entries) => {
+    console.log('handleObserver', entries)
+    const target = entries[0]
+    if (target.isIntersecting) {
+      console.log(target.isIntersecting)
+      console.log(results.length, 'length')
+      setResults((results, heroes) => [...results, ...heroes.slice(results.length, results.length + 1)])
+    }
+  }, [])
 
   useEffect(() => {
-    async function fetchData(url) {
-      const response = await fetch(url)
-      const json = await response.json()
-
-      if (!response.ok) {
-        setLoader(true)
-        setError(response.status + ': ' + response.statusText)
-      }
-
-      setHeroes(json)
-      setLoader(true)
-    }
     fetchData('/all.json')
-  },[])
+    setResults([...results, ...heroes.slice(results.length, results.length + 1)])
+    const option = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0
+    };
+    const observer = new IntersectionObserver(handleObserver, option)
+    console.log('observer loader.current', loader.current)
+    if (loader.current) {
+      observer.observe(loader.current)
+    }
+  },[handleObserver])
 
   if (error) {
     return <div>Error: {error}</div>
@@ -40,6 +62,7 @@ const App = () => {
   } else {
     return (
       <div className='App'>
+        <button onClick={() => setResults([...results, ...heroes.slice(results.length, results.length + 1)])}>add more results</button>
         <Router>
           <div>
             <nav>
@@ -61,7 +84,7 @@ const App = () => {
                   <Welcome />
                 </Route>
                 <Route path='/superheroes'>
-                  <Results heroes={heroes}/>
+                  <Results loader={loader} results={results}/>
                 </Route>
                 <Route path='/team'>
                   <Team heroes={heroes}/>

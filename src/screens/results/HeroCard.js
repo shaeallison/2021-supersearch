@@ -64,8 +64,7 @@ const StyledLink = styled(Link)`
 
 const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
-  const {images, name, powerstats} = props.hero
-  console.log(images)
+  const {name, powerstats} = props.hero
 
   const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
 
@@ -78,7 +77,7 @@ const HeroCard = (props) => {
           Add to Team [Toggle Here]
           <StyledPowers isExpanded={isExpanded}>
             {Object.keys(powerstats).map((key) => (
-              <p>{key}: {powerstats[key]}</p>
+              <p key={`${name}-${key}`}>{key}: {powerstats[key]}</p>
             ))}
           </StyledPowers>
         </div>
