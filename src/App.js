@@ -32,7 +32,7 @@ const App = () => {
     if (heroes.length < 1) {
       fetchData('/all.json')
     }
-  }, [isLoaded, heroes])
+  }, [heroes])
 
   if (error) {
     return <div>Error: {error}</div>
