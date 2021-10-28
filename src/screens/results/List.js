@@ -4,11 +4,17 @@ import HeroCard from './HeroCard'
 
 const ResultsList = (props) => {
   const results = props.results
+  const gutters = [
+    {breakpoint: null, size: '0'},
+    {breakpoint: 'sm', size: '1.5rem'},
+    {breakpoint: 'md', size: '3.8rem'}
+  ]
+
   return (
-    <Grid gutter="3.8">
+    <Grid gutter={gutters}>
       {results.map((hero, i) => (
         <Column
-          gutter="3.8"
+          gutter={gutters}
           cols={[
             {breakpoint: null, size: '12'},
             {breakpoint: 'sm', size: '6'},
