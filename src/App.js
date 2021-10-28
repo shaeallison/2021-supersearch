@@ -31,18 +31,19 @@ const App = () => {
   }
 
   const handleObserver = useCallback((entries) => {
-    console.log('handleObserver', entries)
     const target = entries[0]
+
+    console.log(results.length, 'results length: handleObserver')
+
     if (target.isIntersecting) {
-      console.log(target.isIntersecting)
+      console.log('handleObserver', target.isIntersecting)
       console.log(results.length, 'length')
-      setResults((results, heroes) => [...results, ...heroes.slice(results.length, results.length + 1)])
+      setResults((results) => [...results, ...heroes.slice(results.length, results.length + 1)])
     }
   }, [])
 
   useEffect(() => {
     fetchData('/all.json')
-    setResults([...results, ...heroes.slice(results.length, results.length + 1)])
     const option = {
       root: null,
       rootMargin: '0px',
@@ -54,6 +55,8 @@ const App = () => {
       observer.observe(loader.current)
     }
   },[handleObserver])
+
+  console.log(results.length, 'results length: App')
 
   if (error) {
     return <div>Error: {error}</div>
@@ -96,6 +99,7 @@ const App = () => {
             </main>
           </div>
         </Router>
+        <div style={{ color: 'red' }} ref={loader}>Loader Ref El</div>
       </div>
     )
   }
