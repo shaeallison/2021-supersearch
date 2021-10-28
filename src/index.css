@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html {
   /* A font-size of 62.5% will create a base font-size of 10px in most cases */
   font-size: 62.5%;

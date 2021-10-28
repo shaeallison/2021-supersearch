@@ -5,9 +5,10 @@ import HeroCard from './HeroCard'
 const ResultsList = (props) => {
   const heroes = props.heroes
   return (
-    <Grid>
+    <Grid gutter="3.8">
       {heroes.map((hero, i) => (
         <Column
+          gutter="3.8"
           cols={[
             {breakpoint: null, size: '12'},
             {breakpoint: 'sm', size: '6'},
