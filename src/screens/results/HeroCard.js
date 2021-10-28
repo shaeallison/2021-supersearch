@@ -10,7 +10,6 @@ const StyledCard = styled.div`
   flex-direction: column;
   height: calc(100% - 2.2rem);
   width: 100%;
-  background: ${props => props.isExpanded ? `#0084FF` : `transparent`};
   margin-bottom: 2.2rem;
 
   @media ${device.md} {
@@ -24,6 +23,8 @@ const StyledContent = styled.div`
   position: relative;
   overflow: hidden;
   height: 100%;
+  background: ${props => props.isExpanded ? `#0084FF` : `transparent`};
+  color: white;
   z-index: 5;
 
   &::after {
