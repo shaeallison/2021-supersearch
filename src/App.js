@@ -31,17 +31,20 @@ const App = () => {
     setLoader(true)
   }
 
-  const handleObserver = useCallback((entries) => {
-    const target = entries[0]
+  const handleObserver = useCallback(
+    (entries) => {
+      const target = entries[0];
 
-    if (target.isIntersecting) {
-      console.log('handleObserver', target.isIntersecting)
-      setResults((results) => {
-        console.log(results.length, 'results length: handleObserver')
-        return [...results, ...heroes.slice(results.length, results.length + 1)]
-      })
-    }
-  }, [])
+      if (target.isIntersecting) {
+        console.log("handleObserver", target.isIntersecting);
+        setResults((results) => [
+          ...results,
+          ...heroes.slice(results.length, results.length + 1),
+        ]);
+      }
+    },
+    [heroes]
+  );
 
   useEffect(() => {
     if (heroes.length < 1) {
@@ -54,7 +57,7 @@ const App = () => {
       threshold: 0
     };
     const observer = new IntersectionObserver(handleObserver, option)
-    console.log('observer loader.current', loader.current)
+    console.log('observer loadercurrent', loader.current)
     if (loader.current) {
       console.log('observe something')
       observer.observe(loader.current)
