@@ -27,23 +27,27 @@ const App = () => {
       setError(response.status + ': ' + response.statusText)
     }
     setHeroes(json)
+    setResults(json.slice(results.length, results.length + 1))
     setLoader(true)
   }
 
   const handleObserver = useCallback((entries) => {
     const target = entries[0]
 
-    console.log(results.length, 'results length: handleObserver')
-
     if (target.isIntersecting) {
       console.log('handleObserver', target.isIntersecting)
-      console.log(results.length, 'length')
-      setResults((results) => [...results, ...heroes.slice(results.length, results.length + 1)])
+      setResults((results) => {
+        console.log(results.length, 'results length: handleObserver')
+        return [...results, ...heroes.slice(results.length, results.length + 1)]
+      })
     }
   }, [])
 
   useEffect(() => {
-    fetchData('/all.json')
+    if (heroes.length < 1) {
+      fetchData('/all.json')
+    }
+
     const option = {
       root: null,
       rootMargin: '0px',
@@ -52,9 +56,10 @@ const App = () => {
     const observer = new IntersectionObserver(handleObserver, option)
     console.log('observer loader.current', loader.current)
     if (loader.current) {
+      console.log('observe something')
       observer.observe(loader.current)
     }
-  },[handleObserver])
+  },[handleObserver, isLoaded])
 
   console.log(results.length, 'results length: App')
 
@@ -103,6 +108,7 @@ const App = () => {
       </div>
     )
   }
+
 }
 
 export default App
