@@ -11,6 +11,8 @@ const StyledCard = styled.div`
   height: calc(100% - 2.2rem);
   width: 100%;
   margin-bottom: 2.2rem;
+  border: ${props => props.isSelected ? `0.4rem solid #F9873D` : `none`};
+  border-radius: ${props => props.isSelected ? `0.2rem` : `0`};
 
   @media ${device.md} {
     min-height: 40rem;
@@ -70,6 +72,7 @@ const StyledLink = styled(Link)`
 
 const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
+  const [team, setTeam] = useState(JSON.parse(window.localStorage.getItem('team')))
   const {images, name, powerstats, id} = props.hero
 
   const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
@@ -79,16 +82,20 @@ const HeroCard = (props) => {
 
     if (savedTeam === '' || savedTeam === null) {
       window.localStorage.setItem('team', JSON.stringify([id]))
+      setTeam(JSON.stringify([id]))
     } else {
       savedTeam.push(id)
       window.localStorage.setItem('team', JSON.stringify(savedTeam))
+      setTeam(JSON.stringify(savedTeam))
     }
   }
 
   const removeFromTeam = (id) => {
     let savedTeam = JSON.parse(window.localStorage.getItem('team'))
+
     savedTeam = savedTeam.filter(hero => hero !== `${id}`)
     window.localStorage.setItem('team', JSON.stringify(savedTeam))
+    setTeam(JSON.stringify(savedTeam))
   }
 
   const handleChange = (e) => {
@@ -102,15 +109,14 @@ const HeroCard = (props) => {
   }
 
   return (
-    <StyledCard isExpanded={isExpanded}>
+    <StyledCard isExpanded={isExpanded} isSelected={team.includes(`${id}`)}>
       <StyledImg imageUrl={images.md} role='img' aria-label={name}/>
       <StyledContent isExpanded={isExpanded}>
         <div>
           <StyledLink to={'/' + name}>{name}</StyledLink>
-          Add to Team
           <form>
             <label>Add to Team</label>
-            <input type='checkbox' onChange={handleChange} data-hero={`hero-${id}`}/>
+            <input type='checkbox' checked={team.includes(`${id}`)} onChange={handleChange} data-hero={`hero-${id}`}/>
           </form>
           <StyledPowers isExpanded={isExpanded}>
             {Object.keys(powerstats).map((key) => (
