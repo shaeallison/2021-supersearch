@@ -16,7 +16,6 @@ const List = (props) => {
     heroes = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
 
     removeCard = id => {
-      console.log('remove triggered on list', heroes)
       heroes.filter(() => !savedTeam.includes(`${id}`))
     }
   }
