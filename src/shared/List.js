@@ -8,6 +8,18 @@ const LOADER_INCREMENT = 4
 const List = (props) => {
   const [numToDisplay, setNumToDisplay] = useState(LOADER_INCREMENT)
   const loader = useRef(null)
+  let heroes = props.heroes
+  let removeCard = () => {}
+
+  if (props.screen === 'team') {
+    let savedTeam = JSON.parse(window.localStorage.getItem('team'))
+    heroes = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
+
+    removeCard = id => {
+      console.log('remove triggered on list', heroes)
+      heroes.filter(() => !savedTeam.includes(`${id}`))
+    }
+  }
 
   const handleObserver = useCallback((entries) => {
     const target = entries[0]
@@ -26,7 +38,7 @@ const List = (props) => {
     if (loader.current) {
       observer.observe(loader.current)
     }
-  }, [handleObserver, props.heroes])
+  }, [handleObserver, heroes])
 
   const gutters = [
     {breakpoint: null, size: '0'},
@@ -37,7 +49,7 @@ const List = (props) => {
   return (
     <>
       <Grid gutter={gutters}>
-        {props.heroes.slice(0, numToDisplay).map((hero, i) => (
+        {heroes.slice(0, numToDisplay).map((hero, i) => (
           <Column
             gutter={gutters}
             cols={[
@@ -46,9 +58,14 @@ const List = (props) => {
               {breakpoint: 'md', size: '4'},
               {breakpoint: 'lg', size: '3'}
             ]}
-            key={`column-${i}`}
-            >
-            <HeroCard hero={hero} data-name={hero.name} key={`hero-${hero.id}`} />
+            key={`column-${i}`}>
+            <HeroCard
+              hero={hero}
+              screen={props.screen}
+              removeCard={props.screen === 'team' ? removeCard : ''}
+              data-name={hero.name}
+              key={`hero-${hero.id}`}
+            />
           </Column>
         ))}
       </Grid>

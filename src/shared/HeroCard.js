@@ -90,7 +90,7 @@ const HeroCard = (props) => {
     }
   }
 
-  const removeFromTeam = (id) => {
+  const removeFromTeam = (id, screen) => {
     let savedTeam = JSON.parse(window.localStorage.getItem('team'))
 
     savedTeam = savedTeam.filter(hero => hero !== `${id}`)
@@ -106,6 +106,10 @@ const HeroCard = (props) => {
     } else {
       removeFromTeam(heroId)
     }
+
+    if (props.screen === 'team') {
+      props.removeCard(heroId)
+    }
   }
 
   return (
@@ -116,7 +120,12 @@ const HeroCard = (props) => {
           <StyledLink to={'/' + name}>{name}</StyledLink>
           <form>
             <label>Add to Team</label>
-            <input type='checkbox' checked={team.includes(`${id}`)} onChange={handleChange} data-hero={`hero-${id}`}/>
+            <input
+              type='checkbox'
+              checked={team.includes(`${id}`)}
+              onChange={handleChange}
+              data-hero={`hero-${id}`}
+            />
           </form>
           <StyledPowers isExpanded={isExpanded}>
             {Object.keys(powerstats).map((key) => (
