@@ -70,17 +70,48 @@ const StyledLink = styled(Link)`
 
 const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
-  const {images, name, powerstats} = props.hero
+  const {images, name, powerstats, id} = props.hero
 
   const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
 
+  const addToTeam = (id) => {
+    let savedTeam = JSON.parse(window.localStorage.getItem('team'))
+
+    if (savedTeam === '' || savedTeam === null) {
+      window.localStorage.setItem('team', JSON.stringify([id]))
+    } else {
+      savedTeam.push(id)
+      window.localStorage.setItem('team', JSON.stringify(savedTeam))
+    }
+  }
+
+  const removeFromTeam = (id) => {
+    let savedTeam = JSON.parse(window.localStorage.getItem('team'))
+    savedTeam = savedTeam.filter(hero => hero !== `${id}`)
+    window.localStorage.setItem('team', JSON.stringify(savedTeam))
+  }
+
+  const handleChange = (e) => {
+    const heroId = e.target.dataset.hero.replace('hero-', '')
+
+    if (e.target.checked) {
+      addToTeam(heroId)
+    } else {
+      removeFromTeam(heroId)
+    }
+  }
+
   return (
     <StyledCard isExpanded={isExpanded}>
-      <StyledImg imageUrl={images.md} role='img' aria-label='{name}'/>
+      <StyledImg imageUrl={images.md} role='img' aria-label={name}/>
       <StyledContent isExpanded={isExpanded}>
         <div>
           <StyledLink to={'/' + name}>{name}</StyledLink>
-          Add to Team [Toggle Here]
+          Add to Team
+          <form>
+            <label>Add to Team</label>
+            <input type='checkbox' onChange={handleChange} data-hero={`hero-${id}`}/>
+          </form>
           <StyledPowers isExpanded={isExpanded}>
             {Object.keys(powerstats).map((key) => (
               <p key={`${name}-${key}`}>{key}: {powerstats[key]}</p>

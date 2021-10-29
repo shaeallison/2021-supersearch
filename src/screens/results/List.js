@@ -23,7 +23,7 @@ const ResultsList = (props) => {
           ]}
           key={`column-${i}`}
           >
-          <HeroCard hero={hero} key={`hero-${hero.id}`} />
+          <HeroCard hero={hero} data-name={hero.name} key={`hero-${hero.id}`} />
         </Column>
       ))}
     </Grid>
