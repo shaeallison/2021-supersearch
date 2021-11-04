@@ -28,20 +28,14 @@ const StyledDialog = styled.div`
 
 const Dialog = ({children, ...props}) => {
   const { dialog, setDialog } = useContext(DialogContext)
-  console.log(dialog, 'dialog')
-  const { isOpen, text, handler, noBtnText, yesBtnText } = dialog
+  const { isOpen, heading, text, closeBtnText } = dialog
   const btnRef = useRef(null)
 
   const resetDialog = useCallback(() => {
-    setDialog({ isOpen: false, text: '', handler: null })
+    setDialog({ isOpen: false, text: '' })
   }, [setDialog])
 
-  const handleYesClick = () => {
-    handler()
-    resetDialog()
-  }
-
-  const handleNoClick = () => {
+  const handleCloseClick = () => {
     resetDialog()
   }
 
@@ -64,12 +58,12 @@ const Dialog = ({children, ...props}) => {
     <>
       <StyledOverlay/>
       <StyledDialog {...props} role='dialog' aria-describedby='dialog-desc'>
+        <button onClick={handleCloseClick} variant='red'>
+          {closeBtnText}
+        </button>
+        <h3>{heading}</h3>
         <p id="dialog-desc">{text}</p>
         {children}
-        <button onClick={handleNoClick} variant='red'>
-          {noBtnText}
-        </button>
-        <button onClick={handleYesClick}>{yesBtnText}</button>
       </StyledDialog>
     </>,
     document.getElementById('portal')

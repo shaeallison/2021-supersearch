@@ -85,10 +85,9 @@ const HeroCard = (props) => {
     if (savedTeam.length === 8) {
       setDialog({
         isOpen: true,
-        text: 'Are you want to log "Hello World"?',
-        handler: () => console.log('Hello World'),
-        noBtnText: "Don't log",
-        yesBtnText: 'Log it',
+        heading: 'Oops! You have too many team members',
+        text: 'You may only select 8 team members at a time.',
+        closeBtnText: 'Close'
       })
     } else {
       if (savedTeam === '' || savedTeam === null) {

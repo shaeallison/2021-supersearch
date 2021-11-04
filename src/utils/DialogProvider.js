@@ -5,9 +5,7 @@ function DialogProvider({ children, ...props }) {
   const [dialog, setDialog] = useState({
     isOpen: false,
     text: '',
-    handler: null,
-    noBtnText: '',
-    yesBtnText:''
+    closeBtnText: ''
   })
 
   return (
