@@ -2,8 +2,6 @@ import {React, useState, useRef, useEffect, useCallback} from 'react'
 import Grid from './Grid'
 import Column from './Column'
 import HeroCard from './HeroCard'
-import Dialog from '../shared/Dialog'
-import DialogProvider from '../utils/DialogProvider'
 
 const LOADER_INCREMENT = 4
 
@@ -60,8 +58,7 @@ const List = (props) => {
               {breakpoint: 'lg', size: '3'}
             ]}
             key={`column-${i}`}>
-            <DialogProvider>
-              <Dialog />
+
               <HeroCard
                 hero={hero}
                 screen={props.screen}
@@ -69,7 +66,7 @@ const List = (props) => {
                 data-name={hero.name}
                 key={`hero-${hero.id}`}
               />
-            </DialogProvider>
+
           </Column>
         ))}
       </Grid>
