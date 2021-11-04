@@ -12,6 +12,9 @@ import Results from './screens/results'
 import Team from './screens/team'
 import Detail from './screens/detail'
 
+import Dialog from './shared/Dialog'
+import DialogProvider from './utils/DialogProvider'
+
 const App = () => {
   const [error, setError] = useState()
   const [isLoaded, setLoader] = useState(false)
@@ -59,7 +62,10 @@ const App = () => {
             <main>
               <Switch>
                 <Route exact path='/'>
+                <DialogProvider>
+                  <Dialog />
                   <Welcome />
+                </DialogProvider>
                 </Route>
                 <Route path='/superheroes'>
                   <Results heroes={heroes}/>

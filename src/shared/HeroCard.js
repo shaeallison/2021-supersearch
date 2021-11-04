@@ -1,7 +1,8 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 import device from '../utils/breakpoints'
+import DialogContext from '../utils/DialogContext'
 
 const StyledCard = styled.div`
   position: relative;
@@ -74,23 +75,34 @@ const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
   const [team, setTeam] = useState(JSON.parse(window.localStorage.getItem('team')))
   const {images, name, powerstats, id} = props.hero
+  const { setDialog } = useContext(DialogContext)
 
   const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
 
   const addToTeam = (id) => {
     let savedTeam = JSON.parse(window.localStorage.getItem('team'))
 
-    if (savedTeam === '' || savedTeam === null) {
-      window.localStorage.setItem('team', JSON.stringify([id]))
-      setTeam(JSON.stringify([id]))
+    if (savedTeam.length === 8) {
+      setDialog({
+        isOpen: true,
+        text: 'Are you want to log "Hello World"?',
+        handler: () => console.log('Hello World'),
+        noBtnText: "Don't log",
+        yesBtnText: 'Log it',
+      })
     } else {
-      savedTeam.push(id)
-      window.localStorage.setItem('team', JSON.stringify(savedTeam))
-      setTeam(JSON.stringify(savedTeam))
+      if (savedTeam === '' || savedTeam === null) {
+        window.localStorage.setItem('team', JSON.stringify([id]))
+        setTeam(JSON.stringify([id]))
+      } else {
+        savedTeam.push(id)
+        window.localStorage.setItem('team', JSON.stringify(savedTeam))
+        setTeam(JSON.stringify(savedTeam))
+      }
     }
   }
 
-  const removeFromTeam = (id, screen) => {
+  const removeFromTeam = (id) => {
     let savedTeam = JSON.parse(window.localStorage.getItem('team'))
 
     savedTeam = savedTeam.filter(hero => hero !== `${id}`)

@@ -1,5 +1,3 @@
-const Welcome = () =>  {
-  return <h1>Welcome Screen</h1>
-}
+const Welcome = () =>  'Welcome!'
 
 export default Welcome
