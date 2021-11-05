@@ -7,7 +7,7 @@ import DialogProvider from '../../utils/DialogProvider'
 const Results = (props) => {
   return (
     <Container>
-      <Filters/>
+      <Filters heroes={props.heroes}/>
       <DialogProvider>
         <List screen='results' heroes={props.heroes}/>
         <Dialog />
