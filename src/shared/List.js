@@ -12,7 +12,7 @@ const List = (props) => {
   let removeCard = () => {}
 
   if (screen === 'team') {
-    let savedTeam = JSON.parse(window.localStorage.getItem('team'))
+    let savedTeam = window.localStorage.getItem('team') === null ? [] : JSON.parse(window.localStorage.getItem('team'))
     heroes = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
 
     removeCard = id => {
