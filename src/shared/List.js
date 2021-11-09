@@ -8,10 +8,10 @@ const LOADER_INCREMENT = 4
 const List = (props) => {
   const [numToDisplay, setNumToDisplay] = useState(LOADER_INCREMENT)
   const loader = useRef(null)
-  let heroes = props.heroes
+  let { heroes, screen} = props
   let removeCard = () => {}
 
-  if (props.screen === 'team') {
+  if (screen === 'team') {
     let savedTeam = JSON.parse(window.localStorage.getItem('team'))
     heroes = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
 
@@ -61,8 +61,8 @@ const List = (props) => {
 
               <HeroCard
                 hero={hero}
-                screen={props.screen}
-                removeCard={props.screen === 'team' ? removeCard : ''}
+                screen={screen}
+                removeCard={screen === 'team' ? removeCard : ''}
                 data-name={hero.name}
                 key={`hero-${hero.id}`}
               />

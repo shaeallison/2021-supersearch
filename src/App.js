@@ -76,6 +76,7 @@ const App = () => {
                 <Route exact path='/:path' render={(props) => (
                   <Detail {...props} heroes={heroes}/>
                 )} />
+                 {/* add error handling for incorrect urls */}
               </Switch>
             </main>
           </div>

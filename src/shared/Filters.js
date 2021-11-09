@@ -1,7 +1,8 @@
 const Filters = (props) =>  {
-  const powerStatOptions = props.heroes.map(hero => Object.keys(hero.powerstats))
-  const genderOptions = props.heroes.map(hero => hero.appearance.gender)
-  const alignmentOptions = props.heroes.map(hero => hero.biography.alignment)
+  const {heroes} = props
+  const powerStatOptions = heroes.map(hero => Object.keys(hero.powerstats))
+  const genderOptions = heroes.map(hero => hero.appearance.gender)
+  const alignmentOptions = heroes.map(hero => hero.biography.alignment)
 
   const filteredArray = array => array.filter((item, index) => array.indexOf(item) === index)
 

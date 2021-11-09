@@ -4,10 +4,11 @@ import Dialog from '../../shared/Dialog'
 import DialogProvider from '../../utils/DialogProvider'
 
 const Team = (props) =>  {
+  const {heroes} = props
   return (
     <Container>
       <DialogProvider>
-        <List screen='team' heroes={props.heroes}/>
+        <List screen='team' heroes={heroes}/>
         <Dialog />
       </DialogProvider>
     </Container>

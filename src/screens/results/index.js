@@ -5,11 +5,12 @@ import Dialog from '../../shared/Dialog'
 import DialogProvider from '../../utils/DialogProvider'
 
 const Results = (props) => {
+  const {heroes} = props
   return (
     <Container>
-      <Filters heroes={props.heroes}/>
+      <Filters heroes={heroes}/>
       <DialogProvider>
-        <List screen='results' heroes={props.heroes}/>
+        <List screen='results' heroes={heroes}/>
         <Dialog />
       </DialogProvider>
     </Container>

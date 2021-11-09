@@ -15,9 +15,10 @@ const StyledGrid = styled.div`
 // gutter prop should be in rems
 
 const Grid = (props) =>  {
+  const {gutter, children} = props
   return (
-    <StyledGrid gutter={props.gutter}>
-      {props.children}
+    <StyledGrid gutter={gutter}>
+      {children}
     </StyledGrid>
   )
 }

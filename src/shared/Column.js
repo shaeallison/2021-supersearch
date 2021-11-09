@@ -19,9 +19,11 @@ const StyledColumn = styled.div`
 `;
 
 const Column = (props) =>  {
+  const {gutter, cols, children} = props
+
   return (
-    <StyledColumn cols={props.cols} gutter={props.gutter}>
-      {props.children}
+    <StyledColumn cols={cols} gutter={gutter}>
+      {children}
     </StyledColumn>
   )
 }
