@@ -11,6 +11,7 @@ import Welcome from './screens/welcome'
 import Results from './screens/results'
 import Team from './screens/team'
 import Detail from './screens/detail'
+import NotFound from './screens/notFound'
 
 import Dialog from './shared/Dialog'
 import DialogProvider from './utils/DialogProvider'
@@ -73,10 +74,15 @@ const App = () => {
                 <Route path='/team'>
                   <Team heroes={heroes}/>
                 </Route>
-                <Route exact path='/:path' render={(props) => (
-                  <Detail {...props} heroes={heroes}/>
-                )} />
-                 {/* add error handling for incorrect urls */}
+                <Route exact path='/:path' render={(props) => {
+                  const heroName = props.location.pathname.replace('/', '')
+
+                  if (heroes.find(hero => hero.name === heroName)) {
+                    return <Detail {...props} heroes={heroes}/>
+                  } else {
+                    return <NotFound />
+                  }
+                }} />
               </Switch>
             </main>
           </div>
