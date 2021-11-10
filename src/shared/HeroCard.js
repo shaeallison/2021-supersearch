@@ -74,8 +74,7 @@ const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
   const [team, setTeam] = useState(window.localStorage.getItem('team') === null ? [] : JSON.parse(window.localStorage.getItem('team')))
   const {images, name, powerstats, id} = props.hero
-  const {screen, removeCard} = props
-  const { setDialog } = useContext(DialogContext)
+  const {setDialog} = useContext(DialogContext)
 
   const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
 
@@ -116,10 +115,6 @@ const HeroCard = (props) => {
       addToTeam(heroId)
     } else {
       removeFromTeam(heroId)
-    }
-
-    if (screen === 'team') {
-      removeCard(heroId)
     }
   }
 

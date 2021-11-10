@@ -1,13 +1,20 @@
+import {useContext, useEffect} from 'react'
 import {Container, List, Filters, Dialog} from '../../shared'
-import {DialogProvider} from '../../utils'
+import {DialogProvider, ListContext} from '../../utils'
 
 const Results = (props) => {
-  const {heroes} = props
+  const heroes = props.heroes
+  const {list, setList} = useContext(ListContext)
+
+  useEffect(() => {
+    setList(heroes)
+  })
+
   return (
     <Container>
       <Filters heroes={heroes}/>
       <DialogProvider>
-        <List screen='results' heroes={heroes}/>
+          <List heroes={list}/>
         <Dialog />
       </DialogProvider>
     </Container>

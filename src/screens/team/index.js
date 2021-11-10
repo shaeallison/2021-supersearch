@@ -1,13 +1,25 @@
+import {useContext, useEffect} from 'react'
 import {Container, List, Dialog} from '../../shared'
-import {DialogProvider} from '../../utils'
+import {DialogProvider, ListContext} from '../../utils'
 
 const Team = (props) =>  {
-  const {heroes} = props
-  if (window.localStorage.getItem('team') !== null && window.localStorage.getItem('team') !== '[]') {
+  const heroes = props.heroes
+  const {list, setList} = useContext(ListContext)
+  const team = window.localStorage.getItem('team')
+  const savedTeam = team ? JSON.parse(team) : []
+  const narrowedList = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
+
+  console.log(narrowedList, 'narrowed')
+
+  // useEffect(() => {
+  //   setList(narrowedList) // runs endlessly
+  // })
+
+  if (team && team.length > 0) {
     return (
       <Container>
         <DialogProvider>
-          <List screen='team' heroes={heroes}/>
+          <List heroes={list}/>
           <Dialog />
         </DialogProvider>
       </Container>

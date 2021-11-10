@@ -1,7 +1,7 @@
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components'
-import DialogContext from '../utils/DialogContext';
+import {DialogContext} from '../utils';
 
 // set body to overflow hidden?
 

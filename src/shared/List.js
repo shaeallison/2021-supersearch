@@ -4,22 +4,10 @@ import {Grid, Column, HeroCard} from '../shared'
 const LOADER_INCREMENT = 4
 
 const List = (props) => {
+  console.log('list render')
+  const heroes = props.heroes
   const [numToDisplay, setNumToDisplay] = useState(LOADER_INCREMENT)
   const loader = useRef(null)
-  let {heroes, screen} = props
-  let removeCard = () => {}
-
-  if (screen === 'team') {
-    let savedTeam = window.localStorage.getItem('team') === null ? [] : JSON.parse(window.localStorage.getItem('team'))
-    heroes = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
-
-    removeCard = id => {
-      console.log(id, 'remove')
-      console.log(heroes, savedTeam, 'before')
-      heroes.filter((id) => !savedTeam.includes(`${id}`))
-      console.log(heroes, savedTeam, 'after')
-    }
-  }
 
   const handleObserver = useCallback((entries) => {
     const target = entries[0]
@@ -38,7 +26,7 @@ const List = (props) => {
     if (loader.current) {
       observer.observe(loader.current)
     }
-  }, [handleObserver, heroes])
+  }, [handleObserver])
 
   const gutters = [
     {breakpoint: null, size: '0'},
@@ -61,8 +49,6 @@ const List = (props) => {
             key={`column-${i}`}>
               <HeroCard
                 hero={hero}
-                screen={screen}
-                removeCard={screen === 'team' ? removeCard : null}
                 data-name={hero.name}
                 key={`hero-${hero.id}`}
               />

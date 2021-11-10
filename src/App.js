@@ -8,9 +8,7 @@ import {
 import './App.scss'
 
 import {Welcome, Results, Team, Detail, NotFound} from './screens'
-
-import Dialog from './shared/Dialog'
-import DialogProvider from './utils/DialogProvider'
+import {ListProvider} from './utils'
 
 const App = () => {
   const [error, setError] = useState()
@@ -59,16 +57,17 @@ const App = () => {
             <main>
               <Switch>
                 <Route exact path='/'>
-                <DialogProvider>
-                  <Dialog />
                   <Welcome />
-                </DialogProvider>
                 </Route>
                 <Route path='/superheroes'>
-                  <Results heroes={heroes}/>
+                  <ListProvider>
+                    <Results heroes={heroes}/>
+                  </ListProvider>
                 </Route>
                 <Route path='/team'>
-                  <Team heroes={heroes}/>
+                  <ListProvider>
+                    <Team heroes={heroes}/>
+                  </ListProvider>
                 </Route>
                 <Route exact path='/:path' render={(props) => {
                   const heroName = props.location.pathname.replace('/', '')
