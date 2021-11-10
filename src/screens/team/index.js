@@ -1,12 +1,9 @@
-import Container from '../../shared/Container'
-import List from '../../shared/List'
-import Dialog from '../../shared/Dialog'
-import DialogProvider from '../../utils/DialogProvider'
+import {Container, List, Dialog} from '../../shared'
+import {DialogProvider} from '../../utils'
 
 const Team = (props) =>  {
   const {heroes} = props
-
-  if (window.localStorage.getItem('team') !== null && window.localStorage.getItem('team') !== []) {
+  if (window.localStorage.getItem('team') !== null && window.localStorage.getItem('team') !== '[]') {
     return (
       <Container>
         <DialogProvider>

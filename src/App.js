@@ -7,11 +7,7 @@ import {
 } from 'react-router-dom'
 import './App.scss'
 
-import Welcome from './screens/welcome'
-import Results from './screens/results'
-import Team from './screens/team'
-import Detail from './screens/detail'
-import NotFound from './screens/notFound'
+import {Welcome, Results, Team, Detail, NotFound} from './screens'
 
 import Dialog from './shared/Dialog'
 import DialogProvider from './utils/DialogProvider'

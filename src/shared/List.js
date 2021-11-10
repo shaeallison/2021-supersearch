@@ -1,7 +1,5 @@
 import {React, useState, useRef, useEffect, useCallback} from 'react'
-import Grid from './Grid'
-import Column from './Column'
-import HeroCard from './HeroCard'
+import {Grid, Column, HeroCard} from '../shared'
 
 const LOADER_INCREMENT = 4
 

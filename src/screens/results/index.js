@@ -1,8 +1,5 @@
-import Container from '../../shared/Container'
-import List from '../../shared/List'
-import Filters from '../../shared/Filters'
-import Dialog from '../../shared/Dialog'
-import DialogProvider from '../../utils/DialogProvider'
+import {Container, List, Filters, Dialog} from '../../shared'
+import {DialogProvider} from '../../utils'
 
 const Results = (props) => {
   const {heroes} = props

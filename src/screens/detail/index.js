@@ -1,4 +1,4 @@
-import Container from '../../shared/Container'
+import {Container} from '../../shared'
 
 const Detail = (props) =>  {
   const {heroes, location} = props

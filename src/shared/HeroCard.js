@@ -1,8 +1,7 @@
 import {useState, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
-import device from '../utils/breakpoints'
-import DialogContext from '../utils/DialogContext'
+import {device, DialogContext} from '../utils'
 
 const StyledCard = styled.div`
   position: relative;
