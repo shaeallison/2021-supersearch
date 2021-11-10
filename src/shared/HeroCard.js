@@ -73,7 +73,7 @@ const StyledLink = styled(Link)`
 
 const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
-  const [team, setTeam] = useState(JSON.parse(window.localStorage.getItem('team')))
+  const [team, setTeam] = useState(window.localStorage.getItem('team') === null ? [] : JSON.parse(window.localStorage.getItem('team')))
   const {images, name, powerstats, id} = props.hero
   const {screen, removeCard} = props
   const { setDialog } = useContext(DialogContext)
@@ -81,7 +81,7 @@ const HeroCard = (props) => {
   const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
 
   const addToTeam = (id) => {
-    let savedTeam = JSON.parse(window.localStorage.getItem('team'))
+    let savedTeam = window.localStorage.getItem('team') === null ? [] : JSON.parse(window.localStorage.getItem('team'))
 
     if (savedTeam.length === 8) {
       setDialog({
@@ -107,7 +107,7 @@ const HeroCard = (props) => {
 
     savedTeam = savedTeam.filter(hero => hero !== `${id}`)
     window.localStorage.setItem('team', JSON.stringify(savedTeam))
-    setTeam(JSON.stringify(savedTeam))
+    setTeam(savedTeam)
   }
 
   const handleChange = (e) => {

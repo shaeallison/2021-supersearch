@@ -8,7 +8,7 @@ const LOADER_INCREMENT = 4
 const List = (props) => {
   const [numToDisplay, setNumToDisplay] = useState(LOADER_INCREMENT)
   const loader = useRef(null)
-  let { heroes, screen} = props
+  let {heroes, screen} = props
   let removeCard = () => {}
 
   if (screen === 'team') {
@@ -16,7 +16,10 @@ const List = (props) => {
     heroes = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
 
     removeCard = id => {
-      heroes.filter(() => !savedTeam.includes(`${id}`))
+      console.log(id, 'remove')
+      console.log(heroes, savedTeam, 'before')
+      heroes.filter((id) => !savedTeam.includes(`${id}`))
+      console.log(heroes, savedTeam, 'after')
     }
   }
 
@@ -58,11 +61,10 @@ const List = (props) => {
               {breakpoint: 'lg', size: '3'}
             ]}
             key={`column-${i}`}>
-
               <HeroCard
                 hero={hero}
                 screen={screen}
-                removeCard={screen === 'team' ? removeCard : ''}
+                removeCard={screen === 'team' ? removeCard : null}
                 data-name={hero.name}
                 key={`hero-${hero.id}`}
               />
