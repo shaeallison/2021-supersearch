@@ -4,7 +4,6 @@ import {Grid, Column, HeroCard} from '../shared'
 const LOADER_INCREMENT = 4
 
 const List = (props) => {
-  console.log('list render')
   const heroes = props.heroes
   const [numToDisplay, setNumToDisplay] = useState(LOADER_INCREMENT)
   const loader = useRef(null)
@@ -48,6 +47,7 @@ const List = (props) => {
             ]}
             key={`column-${i}`}>
               <HeroCard
+                allHeroes={heroes} // how else can I update list context on team remove???
                 hero={hero}
                 data-name={hero.name}
                 key={`hero-${hero.id}`}

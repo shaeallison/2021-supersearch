@@ -1,7 +1,7 @@
 import {useState, useContext} from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
-import {device, DialogContext} from '../utils'
+import {device, DialogContext, ListContext} from '../utils'
 
 const StyledCard = styled.div`
   position: relative;
@@ -74,7 +74,9 @@ const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
   const [team, setTeam] = useState(window.localStorage.getItem('team') === null ? [] : JSON.parse(window.localStorage.getItem('team')))
   const {images, name, powerstats, id} = props.hero
+  const heroes = props.allHeroes
   const {setDialog} = useContext(DialogContext)
+  const {setList} = useContext(ListContext)
 
   const handleExpand = () => isExpanded ? toggleExpand(false) : toggleExpand(true)
 
@@ -106,6 +108,7 @@ const HeroCard = (props) => {
     savedTeam = savedTeam.filter(hero => hero !== `${id}`)
     window.localStorage.setItem('team', JSON.stringify(savedTeam))
     setTeam(savedTeam)
+    setList(heroes.filter((hero) => savedTeam.includes(`${hero.id}`)))
   }
 
   const handleChange = (e) => {

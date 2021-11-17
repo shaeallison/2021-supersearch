@@ -8,7 +8,7 @@ const Results = (props) => {
 
   useEffect(() => {
     setList(heroes)
-  })
+  }, [heroes, setList])
 
   return (
     <Container>

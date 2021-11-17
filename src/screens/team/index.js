@@ -6,14 +6,13 @@ const Team = (props) =>  {
   const heroes = props.heroes
   const {list, setList} = useContext(ListContext)
   const team = window.localStorage.getItem('team')
-  const savedTeam = team ? JSON.parse(team) : []
-  const narrowedList = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
 
-  console.log(narrowedList, 'narrowed')
+  useEffect(() => {
+    const savedTeam = team ? JSON.parse(team) : []
+    const narrowedList = heroes.filter((hero) => savedTeam.includes(`${hero.id}`))
 
-  // useEffect(() => {
-  //   setList(narrowedList) // runs endlessly
-  // })
+    setList(narrowedList)
+  }, [heroes, setList, team])
 
   if (team && team.length > 0) {
     return (
