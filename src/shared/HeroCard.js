@@ -16,8 +16,21 @@ const StyledCard = styled.div`
 
   @media ${device.md} {
     min-height: 40rem;
-    margin-bottom: 3.8rem;
-    height: calc(100% - 3.8rem);
+    ${props => {
+      if (props.size === `large`) {
+        return (
+          `height: calc(100vh - 8.6rem);
+            margin-bottom: 0;
+          `
+        )
+      } else if (props.size === `small`) {
+        return (
+          `height: calc(100% - 3.8rem);
+           margin-bottom: 3.8rem;
+          `
+        )
+      }
+    }}
   }
 `;
 
@@ -73,8 +86,8 @@ const StyledLink = styled(Link)`
 const HeroCard = (props) => {
   const [isExpanded, toggleExpand] = useState(false)
   const [team, setTeam] = useState(window.localStorage.getItem('team') === null ? [] : JSON.parse(window.localStorage.getItem('team')))
-  const {images, name, powerstats, id} = props.hero
-  const heroes = props.allHeroes
+  const {hero, allHeroes, isExpandable, size} = props
+  const {images, name, powerstats, id} = hero
   const {setDialog} = useContext(DialogContext)
   const {setList} = useContext(ListContext)
 
@@ -108,7 +121,7 @@ const HeroCard = (props) => {
     savedTeam = savedTeam.filter(hero => hero !== `${id}`)
     window.localStorage.setItem('team', JSON.stringify(savedTeam))
     setTeam(savedTeam)
-    setList(heroes.filter((hero) => savedTeam.includes(`${hero.id}`)))
+    setList(allHeroes.filter((hero) => savedTeam.includes(`${hero.id}`)))
   }
 
   const handleChange = (e) => {
@@ -122,7 +135,7 @@ const HeroCard = (props) => {
   }
 
   return (
-    <StyledCard isExpanded={isExpanded} isSelected={team.includes(`${id}`)}>
+    <StyledCard isExpanded={isExpanded} size={size} isSelected={team.includes(`${id}`)}>
       <StyledImg imageUrl={images.md} role='img' aria-label={name}/>
       <StyledContent isExpanded={isExpanded}>
         <div>
@@ -142,7 +155,9 @@ const HeroCard = (props) => {
             ))}
           </StyledPowers>
         </div>
-        <StyledButton onClick={handleExpand}>Collapse/Expand</StyledButton>
+        {isExpandable && (
+          <StyledButton onClick={handleExpand}>Collapse/Expand</StyledButton>
+        )}
       </StyledContent>
     </StyledCard>
   )

@@ -25,6 +25,8 @@ const Detail = (props) =>  {
           <DialogProvider>
             <ListProvider>
               <HeroCard
+                isExpandable={false}
+                size='large'
                 allHeroes={heroes} // how else can I update list context on team remove???
                 hero={hero}
                 data-name={hero.name}
@@ -41,6 +43,50 @@ const Detail = (props) =>  {
             {breakpoint: 'sm', size: '7'}
           ]}
           key='details'>
+          <Grid gutter={gutters}>
+            <Column
+              gutter={gutters}
+              cols={[
+                {breakpoint: null, size: '12'},
+                {breakpoint: 'sm', size: '6'}
+              ]}
+              key='powerstats'>
+              Powerstats
+            </Column>
+            <Column
+              gutter={gutters}
+              cols={[
+                {breakpoint: null, size: '12'},
+                {breakpoint: 'sm', size: '6'}
+              ]}
+              key='appearance'>
+              Appearance
+            </Column>
+            <Column
+              gutter={gutters}
+              cols={[
+                {breakpoint: null, size: '12'}
+              ]}
+              key='bio'>
+              Biography
+            </Column>
+            <Column
+              gutter={gutters}
+              cols={[
+                {breakpoint: null, size: '12'}
+              ]}
+              key='work'>
+              Work
+            </Column>
+            <Column
+              gutter={gutters}
+              cols={[
+                {breakpoint: null, size: '12'}
+              ]}
+              key='related'>
+              Related Characters
+            </Column>
+          </Grid>
         </Column>
       </Grid>
     </>

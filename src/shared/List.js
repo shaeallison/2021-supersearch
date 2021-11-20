@@ -47,6 +47,8 @@ const List = (props) => {
             ]}
             key={`column-${i}`}>
               <HeroCard
+                isExpandable={true}
+                size='sm'
                 allHeroes={heroes} // how else can I update list context on team remove???
                 hero={hero}
                 data-name={hero.name}
