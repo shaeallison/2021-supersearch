@@ -12,6 +12,13 @@ const Detail = (props) =>  {
     {breakpoint: 'md', size: '5rem'}
   ]
 
+  const powerstats = Object.keys(hero.powerstats)
+  const appearance = Object.keys(hero.appearance)
+  const biography = Object.keys(hero.biography)
+  const work = Object.keys(hero.work)
+
+  console.log(hero)
+
   return (
     <>
       <Grid gutter={gutters}>
@@ -52,6 +59,7 @@ const Detail = (props) =>  {
               ]}
               key='powerstats'>
               Powerstats
+              {powerstats.map(stat => (<p key={stat}>{stat}: {hero.powerstats[stat]}</p>))}
             </Column>
             <Column
               gutter={gutters}
@@ -61,6 +69,7 @@ const Detail = (props) =>  {
               ]}
               key='appearance'>
               Appearance
+              {appearance.map(stat => (<p key={stat}>{stat}: {hero.appearance[stat]}</p>))}
             </Column>
             <Column
               gutter={gutters}
@@ -69,6 +78,7 @@ const Detail = (props) =>  {
               ]}
               key='bio'>
               Biography
+              {biography.map(stat => (<p key={stat}>{stat}: {hero.biography[stat]}</p>))}
             </Column>
             <Column
               gutter={gutters}
@@ -77,6 +87,7 @@ const Detail = (props) =>  {
               ]}
               key='work'>
               Work
+              {work.map(stat => (<p key={stat}>{stat}: {hero.work[stat]}</p>))}
             </Column>
             <Column
               gutter={gutters}

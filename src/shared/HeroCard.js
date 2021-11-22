@@ -15,17 +15,18 @@ const StyledCard = styled.div`
   border-radius: ${props => props.isSelected ? `0.2rem` : `0`};
 
   @media ${device.md} {
-    min-height: 40rem;
     ${props => {
       if (props.size === `large`) {
         return (
-          `height: calc(100vh - 8.6rem);
-            margin-bottom: 0;
+          `min-height: calc(100vh - 8.6rem);
+           height: 100%;
+           margin-bottom: 0;
           `
         )
       } else if (props.size === `small`) {
         return (
-          `height: calc(100% - 3.8rem);
+          `min-height: 40rem;
+           height: calc(100% - 3.8rem);
            margin-bottom: 3.8rem;
           `
         )
